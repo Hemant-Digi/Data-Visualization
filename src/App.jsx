@@ -1,18 +1,22 @@
-import './App.css';
-import wineData from './utils/Wine-Data.json';
-import { calculateMean, calculateMedian, calculateMode } from './utils/statistics';
-import { WineGammaStatisticsComponent } from './components/Gamma';
+import "./App.css";
+import * as React from 'react';
+import wineData from "./utils/Wine-Data.json";
+import {
+  calculateMean,
+  calculateMedian,
+  calculateMode,
+} from "./utils/statistics";
+import { WineGammaStatisticsComponent } from "./components/Gamma";
 
 // Separate data by classes
 const classes = {};
-wineData.forEach(item => {
+wineData.forEach((item) => {
   const alcoholClass = item.Alcohol;
   if (!classes[alcoholClass]) {
     classes[alcoholClass] = [];
   }
   classes[alcoholClass].push(item.Flavanoids);
 });
-
 
 // Calculate mean, median, and mode for each class
 const result = {};
@@ -28,12 +32,13 @@ for (const classKey in classes) {
 // Display the results in React component format
 function WineStatisticsComponent() {
   return (
-    <><>
-    </><table>
+    <>
+      <></>
+      <table>
         <thead>
           <tr>
             <th>Measure</th>
-            {Object.keys(result).map(classKey => (
+            {Object.keys(result).map((classKey) => (
               <th key={classKey}>Class {classKey}</th>
             ))}
           </tr>
@@ -41,7 +46,7 @@ function WineStatisticsComponent() {
         <tbody>
           <tr>
             <td>Flavanoids (Mean, Median, Mode)</td>
-            {Object.keys(result).map(classKey => (
+            {Object.keys(result).map((classKey) => (
               <td key={classKey}>
                 {result[classKey]?.Mean?.toFixed(2)} <br />
                 {result[classKey]?.Median?.toFixed(2)} <br />
@@ -50,7 +55,10 @@ function WineStatisticsComponent() {
             ))}
           </tr>
         </tbody>
-      </table><h1>Wine Gamma Statistics</h1><WineGammaStatisticsComponent /></>
+      </table>
+      <h1>Wine Gamma Statistics</h1>
+      <WineGammaStatisticsComponent />
+    </>
   );
 }
 
